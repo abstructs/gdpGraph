@@ -68,7 +68,7 @@ createBarGraph = function(data) {
     .data(data.data).enter()
     .append("g")
     .append("rect")
-    .attr("x", function(d, i){return i * 2.478 + 90}) // if width changes this also has to change
+    .attr("x", function(d, i){return i * 2.478 + 90}) // if width changes this also has to change TODO: probably make x() scale
     .attr("y", function(d, i){return height - y(d[1])})
     .attr("height", function(d, i){ return y(d[1])})
     .attr("width", "2")
@@ -109,7 +109,7 @@ createBarGraph = function(data) {
     .append("g")
     .attr("width", width - 50)
     .attr("transform", "translate(20, 500)")
-    .call(bottomAxis)
+    .call(bottomaxis)
 
   d3.select("body").select("svg")
     .append("g")
