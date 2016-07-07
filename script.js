@@ -45,17 +45,17 @@ createBarGraph = function(data) {
 
   var y = d3.scaleLinear()
     .domain([gdpMin, gdpMax])
-    .range([0, height - 50]);
+    .range([5, height - 50]);
 
   var xAxisScale = d3.scaleLinear()
-    .domain([yearMin.getFullYear(), yearMax.getFullYear()])
-    .range([50, width + 50]);
+    .domain([yearMin, yearMax])
+    .range([70, width + 50])
 
   var yAxisScale = d3.scaleLinear()
     .domain([gdpMax, gdpMin])
-    .range([50, height])
+    .range([70, height])
 
-  var bottomAxis = d3.axisBottom(xAxisScale).tickFormat(d3.format("d")) ;
+  var bottomAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));
   var leftAxis = d3.axisLeft(yAxisScale);
 
   var bars = d3.select("body").select("svg");
@@ -68,7 +68,7 @@ createBarGraph = function(data) {
     .data(data.data).enter()
     .append("g")
     .append("rect")
-    .attr("x", function(d, i){return i * 2.544 + 70}) // if width changes this also has to change
+    .attr("x", function(d, i){return i * 2.478 + 90}) // if width changes this also has to change
     .attr("y", function(d, i){return height - y(d[1])})
     .attr("height", function(d, i){ return y(d[1])})
     .attr("width", "2")
@@ -81,9 +81,9 @@ createBarGraph = function(data) {
         .style("top", (d3.event.pageY - 28) + "px");
     })
     .on("mouseout", function(d) {
-        div.transition()
-            .duration(500)
-            .style("opacity", 0);
+      div.transition()
+        .duration(500)
+        .style("opacity", 0);
     });
 
   d3.select("svg").append("text")  // create the ttile for the graph
@@ -92,6 +92,18 @@ createBarGraph = function(data) {
     .attr("text-anchor", "middle")
     .style("font-size", "26px")
     .text("GDP Graph");
+
+    d3.select("svg")
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "translate(30, 250)rotate(-90)")
+      .text("GDP In Billions");
+
+    d3.select("svg")
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "translate(420, 560)")
+      .text("Year");
 
   d3.select("body").select("svg")
     .append("g")
@@ -102,7 +114,7 @@ createBarGraph = function(data) {
   d3.select("body").select("svg")
     .append("g")
     .attr("height", height - 50)
-    .attr("transform", "translate(70)")
+    .attr("transform", "translate(90)")
     .call(leftAxis)
 };
 $(function(){
