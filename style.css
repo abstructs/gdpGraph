@@ -1,0 +1,32 @@
+.chart rect {
+  fill: steelblue;
+}
+rect:hover {
+  fill: red;
+  -moz-transition: all 0.1s;
+        -o-transition: all 0.1s;
+        -webkit-transition: all 0.1s;
+        transition: all 0.1s;
+}
+body {
+  text-align: center;
+  background-color: red;
+}
+svg {
+  margin-top: 70px;
+  background-color: white;
+  box-shadow: 2px 2px 44px #000;
+}
+.tooltip {
+  position: absolute;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 3px 5px 3px 5px;
+  font: 1em sans-serif;
+  border: 0px;
+  border-radius: 5px;
+  pointer-events: none;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  background-color: lightsteelblue;
+}
