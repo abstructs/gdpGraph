@@ -29,12 +29,6 @@ getMinDate = function(dateArray) {
   });
   return new Date(Math.min.apply(null, dates));
 }
-getMaxGDP = function(gdpArray) {
-
-}
-getMinGDP = function(gdpArray) {
-
-}
 createBarGraph = function(data) {
   var height = 500;
   var width = 700;
@@ -66,6 +60,10 @@ createBarGraph = function(data) {
 
   var bars = d3.select("body").select("svg");
 
+  var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
   bars.selectAll(".chart")
     .data(data.data).enter()
     .append("g")
@@ -74,12 +72,19 @@ createBarGraph = function(data) {
     .attr("y", function(d, i){return height - y(d[1])})
     .attr("height", function(d, i){ return y(d[1])})
     .attr("width", "2")
-    .on('mouseover', function(d) {
-
+    .on("mouseover", function(d) {
+      div.transition()
+        .duration(200)
+        .style("opacity", .9);
+      div	.html('Year: ' + d[0] + "<br/>"  + 'Value: ' + d[1])
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
     })
-    .on('mouseout', function(d) {
-
-    })
+    .on("mouseout", function(d) {
+        div.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
 
   d3.select("svg").append("text")  // create the ttile for the graph
     .attr("x", width / 2 + 70)
@@ -101,7 +106,7 @@ createBarGraph = function(data) {
     .call(leftAxis)
 };
 $(function(){
-  var promise = getData(); // TODO: Find out how to change horizontal graphs to vertical graphs, use <line> to create chart
+  var promise = getData();
   promise.success(function(data){
     createBarGraph(data);
   });

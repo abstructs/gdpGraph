@@ -17,7 +17,8 @@ svg {
   background-color: white;
   box-shadow: 2px 2px 44px #000;
 }
-.tooltip {
+/* tooltip from http://bl.ocks.org/d3noob/a22c42db65eb00d4e369 */
+div.tooltip {
   position: absolute;
   text-align: left;
   width: auto;
